@@ -21,6 +21,7 @@ import (
 	"github.com/rubrikinc/rubrik-client-for-prometheus/src/golang/healthcheck"
 	"github.com/rubrikinc/rubrik-client-for-prometheus/src/golang/jobs"
 	"github.com/rubrikinc/rubrik-client-for-prometheus/src/golang/livemount"
+	"github.com/rubrikinc/rubrik-client-for-prometheus/src/golang/objectprotection"
 	"github.com/rubrikinc/rubrik-client-for-prometheus/src/golang/stats"
 	"github.com/rubrikinc/rubrik-sdk-for-go/rubrikcdm"
 )
@@ -112,6 +113,15 @@ func main() {
 		}
 	}()
 
+	// failed job details
+	go func() {
+		for {
+			jobs.GetMssqlFailedJobs(rubrik, clusterName.(string))
+			jobs.GetVmwareVmFailedJobs(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(5) * time.Minute)
+		}
+	}()
+
 	// failed cluster event job details
 	go func() {
 		for {
@@ -127,7 +137,6 @@ func main() {
 			time.Sleep(time.Duration(1) * time.Minute)
 		}
 	}()
-
 	// SQL DB capacity stats
 	go func() {
 		for {
@@ -144,10 +153,50 @@ func main() {
 		}
 	}()
 
+	// VMware vSphere VM capacity stats
+	go func() {
+		for {
+			stats.GetVSphereVmCapacityStats(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(1) * time.Hour)
+		}
+	}()
+
+	// Oracle DB capacity stats
+	go func() {
+		for {
+			stats.GetOracleCapacityStats(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(1) * time.Hour)
+		}
+	}()
+
+	// Rubrik Snappable slaDomain
+	go func() {
+		for {
+			objectprotection.GetSnappableEffectiveSlaDomain(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(1) * time.Hour)
+		}
+	}()
+
+	// Rubrik slaDomain Summary
+	go func() {
+		for {
+			objectprotection.GetSlaDomainSummary(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(1) * time.Hour)
+		}
+	}()
+
 	// get live mount stats
 	go func() {
 		for {
 			livemount.GetMssqlLiveMountAges(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(1) * time.Hour)
+		}
+	}()
+
+	//Get Relic Storage Stats
+	go func() {
+		for {
+			stats.GetRelicStorageStats(rubrik, clusterName.(string))
 			time.Sleep(time.Duration(1) * time.Hour)
 		}
 	}()
