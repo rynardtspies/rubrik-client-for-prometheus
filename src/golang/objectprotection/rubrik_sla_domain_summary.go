@@ -16,9 +16,7 @@ var (
 			Help: "Return summary information for an SLA domain",
 		},
 		[]string{
-			"primaryClusterId",
 			"slaDomainName",
-			"slaDomainId",
 			"maxLocalRetentionLimit",
 			"archivalLocationName",
 			"replicationTargetname",
@@ -54,7 +52,7 @@ func GetSlaDomainSummary(rubrik *rubrikcdm.Credentials, clusterName string) {
 	slaEntities := slaData.(map[string]interface{})["data"].([]interface{})
 
 	for v := range slaEntities {
-		thisClusterId, thisSlaDomainName, thisSlaDomainId := "null", "null", "null"
+		thisSlaDomainName := "null"
 		thisArchivalLocationName, thisReplicationTargetName := "Not Archived", "Not Replicated"
 		thisHourlyFrequency, thisHourlyRetention := 0.0, 0.0
 		thisDailyFrequency, thisDailyRetention := 0.0, 0.0
@@ -63,9 +61,7 @@ func GetSlaDomainSummary(rubrik *rubrikcdm.Credentials, clusterName string) {
 		thisQuarterlyFrequency, thisQuarterlyRetention := 0.0, 0.0
 		thisYearlyFrequency, thisYearlyRetention := 0.0, 0.0
 
-		thisClusterId = slaEntities[v].(map[string]interface{})["primaryClusterId"].(string)
 		thisSlaDomainName = slaEntities[v].(map[string]interface{})["name"].(string)
-		thisSlaDomainId = slaEntities[v].(map[string]interface{})["id"].(string)
 		thisFrequencies := slaEntities[v].(map[string]interface{})["frequencies"]
 
 		var thisMaxLocalRetention = slaEntities[v].(map[string]interface{})["maxLocalRetentionLimit"].(float64)
@@ -101,9 +97,7 @@ func GetSlaDomainSummary(rubrik *rubrikcdm.Credentials, clusterName string) {
 		}
 
 		slaDomainSummary.WithLabelValues(
-			thisClusterId,
 			thisSlaDomainName,
-			thisSlaDomainId,
 			strconv.FormatFloat(thisMaxLocalRetention, 'f', -1, 64),
 			thisArchivalLocationName,
 			thisReplicationTargetName,
