@@ -18,7 +18,6 @@ var (
 			"clusterName",
 			"objectName",
 			"objectType",
-			"objectID",
 			"location",
 			"slaDomain",
 		},
@@ -54,14 +53,10 @@ func GetSnappableEffectiveSlaDomain(rubrik *rubrikcdm.Credentials, clusterName s
 		cursor := tableData.(map[string]interface{})["cursor"]
 		columns := tableData.(map[string]interface{})["columns"].([]interface{})
 		for _, v := range dataGrid {
-			thisObjectID, thisObjectName, thisObjectType, thisLocation, thisSlaDomain := "null", "null", "null", "null", "null"
+			thisObjectName, thisObjectType, thisLocation, thisSlaDomain := "null", "null", "null", "null"
 
 			for i := 0; i < len(columns); i++ {
 				switch columns[i] {
-				case "ObjectId":
-					thisObjectID = v.([]interface{})[i].(string)
-				case "ObjectLinkingId":
-					thisObjectID = v.([]interface{})[i].(string)
 				case "ObjectName":
 					thisObjectName = v.([]interface{})[i].(string)
 				case "ObjectType":
@@ -76,7 +71,6 @@ func GetSnappableEffectiveSlaDomain(rubrik *rubrikcdm.Credentials, clusterName s
 				clusterName,
 				thisObjectName,
 				thisObjectType,
-				thisObjectID,
 				thisLocation,
 				thisSlaDomain).Set(0)
 		}

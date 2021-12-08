@@ -18,7 +18,6 @@ var (
 		[]string{
 			"clusterName",
 			"objectName",
-			"objectID",
 			"location",
 		},
 	)
@@ -30,7 +29,6 @@ var (
 		[]string{
 			"clusterName",
 			"objectName",
-			"objectID",
 			"location",
 		},
 	)
@@ -69,14 +67,10 @@ func GetVSphereVmCapacityStats(rubrik *rubrikcdm.Credentials, clusterName string
 		cursor := tableData.(map[string]interface{})["cursor"]
 		columns := tableData.(map[string]interface{})["columns"].([]interface{})
 		for _, v := range dataGrid {
-			thisObjectID, thisObjectName, thisLocation := "null", "null", "null"
+			thisObjectName, thisLocation := "null", "null"
 			thisLocalStorage, thisArchiveStorage := 0.0, 0.0
 			for i := 0; i < len(columns); i++ {
 				switch columns[i] {
-				case "ObjectId":
-					thisObjectID = v.([]interface{})[i].(string)
-				case "ObjectLinkingId":
-					thisObjectID = v.([]interface{})[i].(string)
 				case "ObjectName":
 					thisObjectName = v.([]interface{})[i].(string)
 				case "Location":
@@ -90,12 +84,10 @@ func GetVSphereVmCapacityStats(rubrik *rubrikcdm.Credentials, clusterName string
 			rubrikVSphereVmCapacityLocalUsed.WithLabelValues(
 				clusterName,
 				thisObjectName,
-				thisObjectID,
 				thisLocation).Set(thisLocalStorage)
 			rubrikVSphereVmCapacityArchiveUsed.WithLabelValues(
 				clusterName,
 				thisObjectName,
-				thisObjectID,
 				thisLocation).Set(thisArchiveStorage)
 		}
 		if !hasMore {
