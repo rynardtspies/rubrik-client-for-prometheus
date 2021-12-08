@@ -122,7 +122,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "weG2EZh7k"
+                "uid": "default"
               },
               "exemplar": true,
               "expr": "rubrik_snappable_effective_sla{objectName=\"$objectName\"}",
@@ -280,7 +280,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "weG2EZh7k"
+                "uid": "default"
               },
               "exemplar": true,
               "expr": "rubrik_sla_domain_summary{slaDomainName=\"$selectedObjectSlaName\"}",
@@ -388,7 +388,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "weG2EZh7k"
+                "uid": "default"
               },
               "exemplar": true,
               "expr": "rubrik_node_status",
@@ -568,7 +568,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "weG2EZh7k"
+                "uid": "default"
               },
               "exemplar": true,
               "expr": "topk(8,rubrik_node_network_received_bytes)",
@@ -840,7 +840,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "weG2EZh7k"
+            "uid": "default"
           },
           "exemplar": true,
           "expr": "rubrik_used_storage_bytes",
@@ -926,7 +926,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "weG2EZh7k"
+            "uid": "default"
           },
           "exemplar": true,
           "expr": "rubrik_available_storage_bytes",
@@ -1010,7 +1010,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "weG2EZh7k"
+            "uid": "default"
           },
           "exemplar": true,
           "expr": "sum(rubrik_relic_archive_storage_bytes)",
@@ -1022,7 +1022,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "weG2EZh7k"
+            "uid": "default"
           },
           "exemplar": true,
           "expr": "sum(rubrik_relic_local_storage_bytes)",
@@ -1092,7 +1092,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "weG2EZh7k"
+            "uid": "default"
           },
           "exemplar": true,
           "expr": "topk(10, rubrik_relic_archive_storage_bytes + rubrik_relic_local_storage_bytes)",
@@ -1223,7 +1223,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "weG2EZh7k"
+            "uid": "default"
           },
           "exemplar": true,
           "expr": "sum(rubrik_vsphere_vm_capacity_archive_used_bytes)",
@@ -1235,7 +1235,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "weG2EZh7k"
+            "uid": "default"
           },
           "exemplar": true,
           "expr": "sum(rubrik_vsphere_vm_capacity_local_used_bytes)",
@@ -1331,7 +1331,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "weG2EZh7k"
+            "uid": "default"
           },
           "exemplar": true,
           "expr": "sum(rubrik_mssql_db_capacity_archive_used_bytes)",
@@ -1344,7 +1344,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "weG2EZh7k"
+            "uid": "default"
           },
           "exemplar": true,
           "expr": "sum(rubrik_mssql_db_capacity_local_used_bytes)",
@@ -1415,7 +1415,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "weG2EZh7k"
+            "uid": "default"
           },
           "exemplar": true,
           "expr": "topk(10, rubrik_vsphere_vm_capacity_local_used_bytes + rubrik_vsphere_vm_capacity_archive_used_bytes)",
@@ -1475,13 +1475,13 @@
       {
         "current": {
           "selected": true,
-          "text": "bashscriptdev",
-          "value": "bashscriptdev"
+          "text": "",
+          "value": ""
         },
         "definition": "rubrik_snappable_effective_sla",
         "hide": 0,
         "includeAll": false,
-        "label": "Select a server  or object",
+        "label": "Select a server or object",
         "multi": false,
         "name": "objectName",
         "options": [],
