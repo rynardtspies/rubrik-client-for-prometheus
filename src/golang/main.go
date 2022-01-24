@@ -169,6 +169,43 @@ func main() {
 		}
 	}()
 
+	// Share Fileset capacity stats
+	go func() {
+		for {
+			stats.GetShareFilesetCapacityStats(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(1) * time.Hour)
+		}
+	}()
+
+	// Windows Volume Group capacity stats
+	go func() {
+		for {
+			stats.GetWindowsVolumeGroupCapacityStats(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(1) * time.Hour)
+		}
+	}()
+	// Windows Fileset capacity stats
+	go func() {
+		for {
+			stats.GetWindowsFilesetCapacityStats(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(1) * time.Hour)
+		}
+	}()
+	// Linux Fileset capacity stats
+	go func() {
+		for {
+			stats.GetLinuxFilesetCapacityStats(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(1) * time.Hour)
+		}
+	}()
+	// Managed Volume capacity stats
+	go func() {
+		for {
+			stats.GetManagedVolumeCapacityStats(rubrik, clusterName.(string))
+			time.Sleep(time.Duration(1) * time.Hour)
+		}
+	}()
+
 	// Rubrik Snappable slaDomain
 	go func() {
 		for {
